@@ -28,6 +28,3 @@ It extracts JSDoc comments from JavaScript/TypeScript files, processes them usin
 ---
 
 ## 📦 Installation (Coming Soon)
-
-```bash
-npm install ai-docs-generator
