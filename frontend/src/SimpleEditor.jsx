@@ -7,25 +7,6 @@ import {
   mergeAttributes,
   Node,
 } from "@tiptap/react";
-import {
-  Bold,
-  Italic,
-  UnderlineIcon,
-  List,
-  ListOrdered,
-  CodeIcon,
-  LinkIcon,
-  X,
-  TextQuote,
-  ChevronDown,
-  CodeXml,
-  Minus,
-  ImagePlus,
-  ListTodo,
-  Strikethrough,
-  SubscriptIcon,
-  SuperscriptIcon,
-} from "lucide-react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import ListItem from "@tiptap/extension-list-item";
@@ -51,6 +32,10 @@ import CharacterCount from "@tiptap/extension-character-count";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import Placeholder from "@tiptap/extension-placeholder";
+import FontFamily from "@tiptap/extension-font-family";
+import TextAlign from "@tiptap/extension-text-align";
+import Typography from "@tiptap/extension-typography";
+import History from "@tiptap/extension-history";
 
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -62,6 +47,7 @@ import "./TiptapEditor.css";
 import "highlight.js/styles/github.css";
 
 import { createLowlight } from "lowlight";
+import MenuBar from "./Menubar.jsx";
 
 const lowlight = createLowlight();
 
@@ -70,281 +56,6 @@ lowlight.register("javascript", javascript);
 lowlight.register("typescript", typescript);
 lowlight.register("html", html);
 lowlight.register("css", css);
-
-const MenuBar = ({ editor }) => {
-  const [linkUrl, setLinkUrl] = useState("");
-  const [showLinkInput, setShowLinkInput] = useState(false);
-  const [showHeadingDropdown, setShowHeadingDropdown] = useState(false);
-  const [height, setHeight] = useState(480);
-  const [width, setWidth] = useState(640);
-
-  if (!editor) {
-    return null;
-  }
-
-  const addLink = () => {
-    if (linkUrl) {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: linkUrl })
-        .run();
-      setLinkUrl("");
-      setShowLinkInput(false);
-    }
-  };
-
-  // Get the current active heading level or check if it's a paragraph
-  const getActiveHeading = () => {
-    for (let i = 1; i <= 6; i++) {
-      if (editor.isActive("heading", { level: i })) {
-        return i;
-      }
-    }
-    if (editor.isActive("paragraph")) {
-      return "normal";
-    }
-    return null;
-  };
-
-  const activeHeading = getActiveHeading();
-
-  // Get display text for the dropdown button
-  const getHeadingButtonText = () => {
-    if (activeHeading === "normal") {
-      return "Normal";
-    } else if (activeHeading) {
-      return `H${activeHeading}`;
-    }
-    return "Heading";
-  };
-
-  const addImage = useCallback(() => {
-    const url = window.prompt("URL");
-
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
-    }
-  }, [editor]);
-
-  const addYoutubeVideo = () => {
-    const url = prompt("Enter YouTube URL");
-
-    if (url) {
-      editor.commands.setYoutubeVideo({
-        src: url,
-        width: Math.max(320, parseInt(width, 10)) || 640,
-        height: Math.max(180, parseInt(height, 10)) || 480,
-      });
-    }
-  };
-
-  const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes("link").href;
-    const url = window.prompt("URL", previousUrl);
-
-    // cancelled
-    if (url === null) {
-      return;
-    }
-
-    // empty
-    if (url === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-
-      return;
-    }
-
-    // update link
-    try {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: url })
-        .run();
-    } catch (e) {
-      alert(e.message);
-    }
-  }, [editor]);
-
-  const percentage = editor
-    ? Math.round((100 / 240) * editor.storage.characterCount.characters())
-    : 0;
-
-  return (
-    <div className="menu-bar">
-      <button
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        className={editor.isActive("bold") ? "is-active" : ""}
-      >
-        <Bold size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={editor.isActive("italic") ? "is-active" : ""}
-      >
-        <Italic size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleUnderline().run()}
-        className={editor.isActive("underline") ? "is-active" : ""}
-      >
-        <UnderlineIcon size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleStrike().run()}
-        className={editor.isActive("strike") ? "is-active" : ""}
-      >
-        <Strikethrough size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleSubscript().run()}
-        className={editor.isActive("subscript") ? "is-active" : ""}
-      >
-        <SubscriptIcon size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleSuperscript().run()}
-        className={editor.isActive("superscript") ? "is-active" : ""}
-      >
-        <SuperscriptIcon size={18} />
-      </button>
-      <div className="divider"></div>
-      <div className="heading-dropdown">
-        <button
-          onClick={() => setShowHeadingDropdown(!showHeadingDropdown)}
-          className={activeHeading ? "is-active" : ""}
-        >
-          {getHeadingButtonText()}
-          <ChevronDown size={14} className="dropdown-arrow" />
-        </button>
-        {showHeadingDropdown && (
-          <div className="dropdown-content">
-            <button
-              onClick={() => {
-                editor.chain().focus().setParagraph().run();
-                setShowHeadingDropdown(false);
-              }}
-              className={activeHeading === "normal" ? "is-active" : ""}
-            >
-              Normal
-            </button>
-            {[1, 2, 3, 4, 5, 6].map((level) => (
-              <button
-                key={level}
-                onClick={() => {
-                  editor.chain().focus().toggleHeading({ level }).run();
-                  setShowHeadingDropdown(false);
-                }}
-                className={
-                  editor.isActive("heading", { level }) ? "is-active" : ""
-                }
-              >
-                H{level}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="divider"></div>
-      <button
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "is-active" : ""}
-      >
-        <List size={18} className="text-white" />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive("orderedList") ? "is-active" : ""}
-      >
-        <ListOrdered size={18} />
-      </button>
-      <div className="divider"></div>
-      <button
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive("blockquote") ? "is-active" : ""}
-      >
-        <TextQuote size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        className={editor.isActive("codeBlock") ? "is-active" : ""}
-      >
-        <Minus size={18} />
-      </button>
-      <button onClick={addImage}>
-        <ImagePlus size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleCode().run()}
-        className={editor.isActive("code") ? "is-active" : ""}
-      >
-        <CodeIcon size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive("codeBlock") ? "is-active" : ""}
-      >
-        <CodeXml size={18} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleTaskList().run()}
-        className={editor.isActive("taskList") ? "is-active" : ""}
-      >
-        <ListTodo size={18} />
-      </button>
-      <button
-        onClick={setLink}
-        className={editor.isActive("link") ? "is-active" : ""}
-      >
-        <LinkIcon size={18} />
-      </button>
-      <input
-        type="color"
-        onInput={(event) =>
-          editor.chain().focus().setColor(event.target.value).run()
-        }
-        value={editor.getAttributes("textStyle").color}
-        data-testid="setColor"
-      />
-      <div className="divider"></div>
-      <button
-        onClick={() =>
-          editor.chain().focus().unsetAllMarks().clearNodes().run()
-        }
-      >
-        <X size={18} />
-      </button>
-      <div className="control-group">
-        <div className="button-group">
-          <input
-            id="width"
-            type="number"
-            min="320"
-            max="1024"
-            placeholder="width"
-            value={width}
-            onChange={(event) => setWidth(event.target.value)}
-          />
-          <input
-            id="height"
-            type="number"
-            min="180"
-            max="720"
-            placeholder="height"
-            value={height}
-            onChange={(event) => setHeight(event.target.value)}
-          />
-          <button id="add" onClick={addYoutubeVideo}>
-            Add YouTube video
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const SimpleEditor = () => {
   const editor = useEditor({
@@ -504,6 +215,12 @@ const SimpleEditor = () => {
       Placeholder.configure({
         placeholder: `Type '/' for commands`,
       }),
+      FontFamily,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Typography,
+      // History,
     ],
     content: `<p>Hello, start typing here...</p>
     <pre><code class="language-javascript">for (var i = 1; i <= 20; i++) { console.log(i); }</code></pre>
@@ -517,6 +234,46 @@ const SimpleEditor = () => {
   return (
     <>
       <div className="editor-container">
+        {editor && (
+          <FloatingMenu
+            editor={editor}
+            tippyOptions={{ duration: 100 }}
+            shouldShow={({ state }) => {
+              const { $from } = state.selection;
+              const currentLineText = $from.nodeBefore?.textContent || "";
+              return currentLineText === "/";
+            }}
+          >
+            <div data-testid="floating-menu" className="floating-menu">
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 1 }).run()
+                }
+                className={
+                  editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+                }
+              >
+                H1
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 2 }).run()
+                }
+                className={
+                  editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+                }
+              >
+                H2
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+                className={editor.isActive("bulletList") ? "is-active" : ""}
+              >
+                Bullet list
+              </button>
+            </div>
+          </FloatingMenu>
+        )}
         <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
           <div className="bubble-menu">
             <button
