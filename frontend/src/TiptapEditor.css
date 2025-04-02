@@ -1,0 +1,427 @@
+/* Vercel-inspired theme */
+.editor-container {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  border: 1px solid #333;
+}
+
+.menu-bar {
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #111;
+  border-bottom: 1px solid #333;
+  align-items: center;
+}
+
+.menu-bar button {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  margin-right: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-bar button:hover {
+  background-color: #222;
+}
+
+.menu-bar button.is-active {
+  color: #8a63d2;
+  background-color: rgba(138, 99, 210, 0.1);
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #333;
+  margin: 0 8px;
+}
+
+.ProseMirror {
+  padding: 16px;
+  min-height: 200px;
+  outline: none;
+}
+
+.ProseMirror p {
+  margin: 0 0 0.8em 0;
+  line-height: 1.5;
+}
+
+.ProseMirror h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.ProseMirror h2 {
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+.ProseMirror code {
+  background-color: #222;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+.ProseMirror pre {
+  background-color: #222;
+  padding: 0.75em 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 0.8em;
+}
+
+.ProseMirror pre code {
+  background: none;
+  padding: 0;
+}
+
+.ProseMirror a {
+  color: #8a63d2;
+  text-decoration: underline;
+}
+
+.link-input {
+  display: flex;
+  margin-left: 8px;
+}
+
+.link-input input {
+  background-color: #222;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+.link-input button {
+  background-color: #8a63d2;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.link-input button:hover {
+  background-color: #7550c0;
+}
+
+/* Blockquote styling to match the image */
+.ProseMirror blockquote {
+  border-left: 4px solid #ccc;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 16px;
+  font-style: normal;
+  color: #fff;
+}
+
+/* Add some spacing around the blockquote */
+.ProseMirror blockquote p {
+  margin: 0.5em 0;
+}
+
+/* Heading dropdown styling */
+.heading-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.heading-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+  justify-content: space-between;
+  padding: 5px 8px;
+}
+
+.dropdown-arrow {
+  margin-left: 4px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #111;
+  min-width: 100px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: dropdownFadeIn 0.2s ease forwards;
+}
+
+@keyframes dropdownFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-content button {
+  text-align: left;
+  padding: 8px 12px;
+  width: 100%;
+  display: block;
+  border-radius: 0;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.dropdown-content button:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+.dropdown-content button:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
+/* Add styles for h3-h6 in the editor */
+.ProseMirror h3 {
+  font-size: 1.17em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.ProseMirror h4 {
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.ProseMirror h5 {
+  font-size: 0.9em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.ProseMirror h6 {
+  font-size: 0.8em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.blockquote {
+  font-style: italic;
+  border-left: 3px solid var(--gray-3);
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+}
+
+/* Ensure list styles are visible */
+.bullet-list {
+  list-style-type: disc !important;
+  padding-left: 1.5em !important;
+}
+
+.ordered-list {
+  list-style-type: decimal !important;
+  padding-left: 1.5em !important;
+}
+
+pre {
+  background: var(--black);
+  border-radius: 0.5rem;
+  color: var(--white);
+  font-family: "JetBrainsMono", monospace;
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+
+  code {
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+    padding: 0;
+  }
+
+  /* Code styling */
+  .hljs-comment,
+  .hljs-quote {
+    color: #616161;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color: #f98181;
+  }
+
+  .hljs-number,
+  .hljs-meta,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    color: #fbbc88;
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #b9f18d;
+  }
+
+  .hljs-title,
+  .hljs-section {
+    color: #faf594;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #70cff8;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
+  }
+}
+
+.mention {
+  background-color: var(--purple-light);
+  border-radius: 0.4rem;
+  box-decoration-break: clone;
+  color: var(--purple);
+  padding: 0.1rem 0.3rem;
+  &::after {
+    content: "\200B";
+  }
+}
+
+/* List styles */
+ul,
+ol {
+  padding: 0 1rem;
+  margin: 1.25rem 1rem 1.25rem 0.4rem;
+
+  li p {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+}
+
+/* Task list specific styles */
+ul[data-type="taskList"] {
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+
+  li {
+    align-items: flex-start;
+    display: flex;
+
+    > label {
+      flex: 0 0 auto;
+      margin-right: 0.5rem;
+      user-select: none;
+    }
+
+    > div {
+      flex: 1 1 auto;
+    }
+  }
+
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+
+  ul[data-type="taskList"] {
+    margin: 0;
+  }
+}
+
+/* Code and preformatted text styles */
+code {
+  background-color: var(--purple-light);
+  border-radius: 0.4rem;
+  color: var(--black);
+  font-size: 0.85rem;
+  padding: 0.25em 0.3em;
+}
+
+/* Character count */
+.character-count {
+  align-items: center;
+  color: #7a7777;
+  display: flex;
+  font-size: 0.75rem;
+  gap: 0.5rem;
+  margin: 1.5rem;
+
+  svg {
+    color: var(--purple);
+  }
+
+  &--warning,
+  &--warning svg {
+    color: var(--red);
+  }
+}
+
+img {
+  display: block;
+  height: auto;
+  margin: 1.5rem 0;
+  max-width: 100%;
+
+  &.ProseMirror-selectednode {
+    outline: 3px solid var(--purple);
+  }
+}
+
+/* Placeholder (at the top) */
+p.is-editor-empty:first-child::before {
+  color: #838383;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Placeholder (on every new line) */
+.is-empty::before {
+  color: #838383;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

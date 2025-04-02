@@ -1,0 +1,24 @@
+[33mcommit ee20ee4dc33308e66441a848a9d604f8d407f34c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: SidhuAchary02 <siddhuachary2005@gmail.com>
+Date:   Wed Apr 2 20:10:02 2025 +0530
+
+    Removed .env file from git history
+
+[33mcommit 1805a9079d0344991ee328868835b8cf3bc4b3b8[m
+Merge: 3f5587e d8f779d
+Author: SidhuAchary02 <siddhuachary2005@gmail.com>
+Date:   Wed Apr 2 20:06:15 2025 +0530
+
+    Merge branch 'main' of https://github.com/SidhuAchary02/Docgen
+
+[33mcommit 3f5587e080e86ba9d50dcb4c87aac62ccc9791ba[m
+Author: SidhuAchary02 <siddhuachary2005@gmail.com>
+Date:   Wed Apr 2 19:21:07 2025 +0530
+
+    Initial commit with local code
+
+[33mcommit 370dbf09b5ab80ffb07e37f1a7d45c169ef81c29[m
+Author: Sidhu <siddhuachary2005@gmail.com>
+Date:   Sat Mar 15 19:21:56 2025 +0530
+
+    First Commit, Hope it will help the community

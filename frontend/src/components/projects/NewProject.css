@@ -1,0 +1,12 @@
+.languages-list::-webkit-scrollbar {
+    width: 8px; /* Wider scrollbar */
+  }
+  
+  .languages-list::-webkit-scrollbar-thumb {
+    background-color: #666; /* Darker thumb */
+    border-radius: 4px; /* More rounded corners */
+  }
+  
+  .languages-list::-webkit-scrollbar-track {
+    background-color: #222; /* Darker track */
+  }
