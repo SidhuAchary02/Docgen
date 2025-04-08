@@ -1,17 +1,12 @@
-import BackgroundPaths from "./components/home/BackgroundPaths"
-import { Header } from "./components/home/Header"
-import { HeroSection } from "./components/home/HeroSection"
-import MenuBar from "./Menubar"
 import SimpleEditor from "./SimpleEditor"
 
-export default function Home({editor}) {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-black">
-      {/* <Header /> */}
-      {/* <HeroSection /> */}
-      {/* <BackgroundPaths /> */}
-      <SimpleEditor />
-      <MenuBar editor={editor}/>
+    <main className="min-h-screen bg-black p-4 flex justify-center items-start">
+      <div className="w-full max-w-4xl">
+        <SimpleEditor />
+      </div>
     </main>
   )
 }
+
